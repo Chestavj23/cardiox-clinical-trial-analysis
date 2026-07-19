@@ -1,0 +1,62 @@
+-- CREATE DATABASE cardiox_trial;
+-- USE cardiox_trial;
+
+-- CREATE TABLE Patients (
+--     Subject_ID INT PRIMARY KEY,
+--     Age INT,
+--     Gender VARCHAR(10),
+--     Site_ID INT,
+--     Treatment_Group VARCHAR(20),
+--     Enrollment_Date DATE,
+--     Dropout INT,
+--     Systolic_BP INT,
+--     Diastolic_BP INT,
+--     Cholesterol_Level INT,
+--     Adverse_Events INT
+-- );
+-- SELECT * FROM Patients LIMIT 10;
+-- SELECT COUNT(*) FROM Patients;
+-- SELECT *
+-- FROM Patients
+-- WHERE Treatment_Group = 'Drug A' AND Adverse_Events > 0;
+-- SELECT Treatment_Group, COUNT(*), AVG(Systolic_BP)
+-- FROM Patients
+-- GROUP BY Treatment_Group;
+-- SELECT DISTINCT Site_ID FROM Patients ORDER BY Site_ID;
+-- CREATE TABLE sites (
+--     Site_ID INT PRIMARY KEY,
+--     Region VARCHAR(50)
+-- );
+-- INSERT INTO Sites (Site_ID, Region)
+-- SELECT Site_ID,
+--     CASE 
+--         WHEN Site_ID % 4 = 0 THEN 'North Region'
+--         WHEN Site_ID % 4 = 1 THEN 'South Region'
+--         WHEN Site_ID % 4 = 2 THEN 'East Region'
+--         ELSE 'West Region'
+--     END AS Region
+-- FROM (SELECT DISTINCT Site_ID FROM Patients) AS UniqueSites;
+-- SELECT * FROM Sites;
+-- SELECT Patients.Subject_ID, Patients.Treatment_Group, Sites.Region
+-- FROM Patients
+-- INNER JOIN Sites ON Patients.Site_ID = Sites.Site_ID;
+-- SELECT COUNT(*) 
+-- FROM Patients
+-- WHERE Site_ID NOT IN (SELECT Site_ID FROM Sites);
+-- SELECT Sites.Region, COUNT(*) AS Total_Patients, SUM(Patients.Dropout) AS Total_Dropouts
+-- FROM Patients
+-- INNER JOIN Sites ON Patients.Site_ID = Sites.Site_ID
+-- GROUP BY Sites.Region;
+-- SELECT 
+--     CASE 
+--         WHEN Age < 40 THEN 'Under 40'
+--         WHEN Age BETWEEN 40 AND 60 THEN '40-60'
+--         ELSE 'Over 60'
+--     END AS Age_Group,
+--     Treatment_Group,
+--     AVG(Adverse_Events) AS Avg_AE
+-- FROM Patients
+-- GROUP BY Age_Group, Treatment_Group
+-- ORDER BY Age_Group, Treatment_Group;
+
+
